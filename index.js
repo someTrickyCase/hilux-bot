@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const TelegramBot = require("node-telegram-bot-api");
 const {
     postNewBitrixLead,
@@ -6,7 +8,7 @@ const {
 } = require("./bitrxController");
 const { getHash, updateHash } = require("./hashController");
 
-const token = "7591408056:AAGVqMRZzocFsdiq4FcggVhgd1IzqK7rKtc";
+const token = process.env.TOKEN;
 
 const bot = new TelegramBot(token, { polling: true });
 
