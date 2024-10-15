@@ -25,6 +25,7 @@ async function getBitrixLeadComment(id) {
             `https://troffi.bitrix24.ru/rest/253/${BITRIX_KEY}/crm.lead.get/?id=${id}`
         );
         const resJSON = await res.json();
+        console.log(resJSON, "RES COMMENT");
         const comments = resJSON?.result?.COMMENTS;
         console.log("OLD COMMENT", comments);
         return comments;
