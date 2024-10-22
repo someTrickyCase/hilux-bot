@@ -52,7 +52,7 @@ async function botQueryListener(action, chatID, welcomeMessage, confirmMessage) 
             if (bitrixID) {
                 await updateBitrixLeadComment(bitrixID, `${actionMap[action]} ${msg.text}`);
             } else {
-                const res = await postNewBitrixLead(generatePostData(msg, "testimonial"));
+                const res = await postNewBitrixLead(generatePostData(msg, actionMap[action]));
                 updateHash(msg.from.username, res.result);
             }
             await confirmMessage.call(this, chatID);

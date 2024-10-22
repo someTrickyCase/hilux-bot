@@ -4,7 +4,9 @@ const TelegramBot = require("node-telegram-bot-api");
 const { updateHash } = require("./hash/hashController.js");
 
 const token = process.env.TOKEN;
-const bot = new TelegramBot(token, { polling: true });
+const bot = new TelegramBot(token, {
+    polling: true,
+});
 
 const {
     botSendStartMessages,
@@ -17,6 +19,10 @@ const {
     botSendProductWelcomeMessage,
     botSendProductConfirmMessage,
     botSendOrderWelcomeMessage,
+    botSendPayingFAQ,
+    botSendDeliveryFAQ,
+    botSendContactsFAQ,
+    botSendVehicleCustomizationFAQ,
 } = require("./app/botMessages/messages.js");
 const { botQueryListener, botOnOrderQueryListener } = require("./app/botListeners/listeners.js");
 
@@ -69,6 +75,23 @@ bot.on("callback_query", async (query) => {
                 botSendTestimonialWelcomeMessage,
                 botSendTestimonialConfirmMessage
             );
+            break;
+        //
+        case "paying":
+            botRepeatStartMessage.call(bot, chatID);
+            botSendPayingFAQ.call(bot, chatID);
+            break;
+        case "delivery":
+            botRepeatStartMessage.call(bot, chatID);
+            botSendDeliveryFAQ.call(bot, chatID);
+            break;
+        case "contacts":
+            botRepeatStartMessage.call(bot, chatID);
+            botSendContactsFAQ.call(bot, chatID);
+            break;
+        case "vehicleCustomization":
+            botRepeatStartMessage.call(bot, chatID);
+            botSendVehicleCustomizationFAQ.call(bot, chatID);
             break;
     }
 });

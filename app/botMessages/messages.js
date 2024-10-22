@@ -82,6 +82,39 @@ async function botSendOrderWelcomeMessage(chatID) {
     }
 }
 
+//
+
+async function botSendPayingFAQ(chatID) {
+    try {
+        await this.sendMessage(chatID, DICTIONARY.payingFAQ, { parse_mode: "Markdown" });
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function botSendDeliveryFAQ(chatID) {
+    try {
+        await this.sendMessage(chatID, DICTIONARY.deliveryFAQ, { parse_mode: "Markdown" });
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function botSendContactsFAQ(chatID) {
+    try {
+        await this.sendMessage(chatID, DICTIONARY.contactsFAQ, { parse_mode: "Markdown" });
+    } catch (error) {
+        console.error(error);
+    }
+}
+async function botSendVehicleCustomizationFAQ(chatID) {
+    try {
+        await this.sendMessage(chatID, DICTIONARY.vehicleCustomizationFAQ, {
+            parse_mode: "Markdown",
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     botSendStartMessages,
     botSendOrderConfirmMessages,
@@ -93,4 +126,8 @@ module.exports = {
     botSendProductWelcomeMessage,
     botSendProductConfirmMessage,
     botSendOrderWelcomeMessage,
+    botSendPayingFAQ,
+    botSendDeliveryFAQ,
+    botSendContactsFAQ,
+    botSendVehicleCustomizationFAQ,
 };
