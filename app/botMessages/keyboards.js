@@ -4,7 +4,7 @@ const startKeyboard = {
     reply_markup: {
         inline_keyboard: [
             [{ text: "🗨️ Уточнить наличие товара", callback_data: "product" }],
-            [{ text: "🚛 Уточнить статус заказа", callback_data: "order" }],
+            // [{ text: "🚛 Уточнить статус заказа", callback_data: "order" }],
             [{ text: "🤓 Получить бесплатную консультацию", callback_data: "consultation" }],
             [{ text: "🥳 Оставить отзыв о работе приложения", callback_data: "testimonial" }],
             [{ text: "💲 Способы оплаты", callback_data: "paying" }],
