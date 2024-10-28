@@ -11,7 +11,7 @@ async function getBitrixLeadStatus(id) {
         const resJSON = await res.json();
         const statusDescription = resJSON?.result?.UF_CRM_1728573871;
         return statusDescription
-            ? `Статус вашего заказа: ${statusDescription}`
+            ? `Вы успешно оформили заказ! В ближайшее время мы свяжемся с Вами.`
             : "Мы не нашли заказа с таким номером 😥";
     } catch (error) {
         console.error(error);
@@ -25,7 +25,9 @@ async function getBitrixLeadComment(id) {
             `https://troffi.bitrix24.ru/rest/253/${BITRIX_KEY}/crm.lead.get/?id=${id}`
         );
         const resJSON = await res.json();
-        console.log(resJSON, "RES COMMENT");
+        if (resJSON.error_description === "Not found") {
+            return "not found";
+        }
         const comments = resJSON?.result?.COMMENTS;
         console.log("OLD COMMENT", comments);
         return comments;
@@ -35,7 +37,7 @@ async function getBitrixLeadComment(id) {
 }
 
 async function postNewBitrixLead(data) {
-    console.log("postNewBitrixLead");
+    console.log(data, "postNewBitrixLead");
     try {
         const res = await fetch(
             `https://troffi.bitrix24.ru/rest/253/${BITRIX_KEY}/crm.lead.add.json/`,

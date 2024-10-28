@@ -7,8 +7,10 @@ const {
 const { botRepeatStartMessage } = require("../botMessages/messages");
 
 function generatePostData(msg, type) {
+    console.log(type);
     const postData = {
         fields: {
+            SOURCE_ID: "12",
             SOURCE_DESCRIPTION: "hilux-tg-bot",
             NAME: msg.chat.first_name,
             IM: [
@@ -21,20 +23,21 @@ function generatePostData(msg, type) {
     };
 
     switch (type) {
-        case "testimonial":
+        case "Оставил отзыв:":
             postData.fields.COMMENTS = `Оставил отзыв: ${msg.text}`;
             postData.fields.TITLE = `${msg.chat.first_name}  Отзыв`;
             break;
-        case "consultation":
+        case "Консультация:":
             postData.fields.COMMENTS = `Запросил консультацию: ${msg.text}`;
             postData.fields.TITLE = `${msg.chat.first_name}  Консультация`;
             break;
-        case "product":
+        case "Вопрос о товаре:":
             postData.fields.COMMENTS = `Задал вопрос по наличию: ${msg.text}`;
             postData.fields.TITLE = `${msg.chat.first_name}  Вопрос по наличию`;
             break;
     }
 
+    console.log(postData);
     return postData;
 }
 
@@ -50,7 +53,14 @@ async function botQueryListener(action, chatID, welcomeMessage, confirmMessage) 
         this.on("message", async (msg) => {
             const bitrixID = getHash(msg.from.username);
             if (bitrixID) {
-                await updateBitrixLeadComment(bitrixID, `${actionMap[action]} ${msg.text}`);
+                const leadUpdatingRes = await updateBitrixLeadComment(
+                    bitrixID,
+                    `${actionMap[action]} ${msg.text}`
+                );
+                if (leadUpdatingRes.status === 400) {
+                    const res = await postNewBitrixLead(generatePostData(msg, actionMap[action]));
+                    updateHash(msg.from.username, res.result);
+                }
             } else {
                 const res = await postNewBitrixLead(generatePostData(msg, actionMap[action]));
                 updateHash(msg.from.username, res.result);

@@ -43,9 +43,9 @@ bot.on("message", async (msg) => {
 bot.on("callback_query", async (query) => {
     const chatID = query.message.chat.id;
     switch (query.data) {
-        // case "order":
-        //     botOnOrderQueryListener.call(bot, chatID, botSendOrderWelcomeMessage);
-        //     break;
+        case "order":
+            botOnOrderQueryListener.call(bot, chatID, botSendOrderWelcomeMessage);
+            break;
         case "product":
             botQueryListener.call(
                 bot,
