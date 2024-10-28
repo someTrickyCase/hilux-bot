@@ -43,10 +43,9 @@ bot.on("message", async (msg) => {
 bot.on("callback_query", async (query) => {
     const chatID = query.message.chat.id;
     switch (query.data) {
-        case "order":
-            botOnOrderQueryListener.call(bot, chatID, botSendOrderWelcomeMessage);
-            break;
-
+        // case "order":
+        //     botOnOrderQueryListener.call(bot, chatID, botSendOrderWelcomeMessage);
+        //     break;
         case "product":
             botQueryListener.call(
                 bot,
@@ -56,7 +55,6 @@ bot.on("callback_query", async (query) => {
                 botSendProductConfirmMessage
             );
             break;
-
         case "consultation":
             botQueryListener.call(
                 bot,
@@ -66,7 +64,6 @@ bot.on("callback_query", async (query) => {
                 botSendConsultationConfirmMessage
             );
             break;
-
         case "testimonial":
             botQueryListener.call(
                 bot,
@@ -76,7 +73,8 @@ bot.on("callback_query", async (query) => {
                 botSendTestimonialConfirmMessage
             );
             break;
-        //
+
+        // FAQ
         case "paying":
             botRepeatStartMessage.call(bot, chatID);
             botSendPayingFAQ.call(bot, chatID);
