@@ -6,6 +6,8 @@ const {
 } = require("../../api/bitrxController.js");
 const { botRepeatStartMessage } = require("../botMessages/messages");
 
+const { switchToDefaultState } = require("../botState/defaultState.js");
+
 function generatePostData(msg, type) {
     console.log(type);
     const postData = {
@@ -67,8 +69,9 @@ async function botQueryListener(action, chatID, welcomeMessage, confirmMessage) 
             }
             await confirmMessage.call(this, chatID);
             botRepeatStartMessage.call(this, chatID);
-            this.removeListener("message");
+            switchToDefaultState(this);
         });
+        return;
     } catch (error) {
         console.error(error);
     }
@@ -84,10 +87,12 @@ async function botOnOrderQueryListener(chatID, welcomeMessage) {
             setTimeout(() => {
                 botRepeatStartMessage.call(this, chatID);
             }, 700);
-            this.removeListener("message");
+            switchToDefaultState(this);
         });
+        return;
     } catch (error) {
         console.error(error);
+        return;
     }
 }
 
